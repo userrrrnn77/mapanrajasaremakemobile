@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from "react";
+import { StatusBar } from "expo-status-bar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { AppNavigator } from "./app/navigation/AppNavigator";
+import { useColorScheme } from "nativewind";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { View } from "react-native";
+
+// 🔥 WAJIB: Import file css global biar NativeWind jalan Bre!
+// @ts-ignore
+import "./global.css";
+import { useAuthStore } from "./app/context/useAuthStore";
 
 export default function App() {
+  const { colorScheme } = useColorScheme();
+  const isDark = colorScheme === "dark";
+  const { hydrate, hydrated } = useAuthStore();
+
+  useEffect(() => {
+    hydrate();
+  }, []);
+
+  if (!hydrated) return null;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StatusBar style={isDark ? "light" : "dark"} />
+        <AppNavigator />
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

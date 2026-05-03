@@ -39,3 +39,7 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+app/client_secret_791696317369-p00onthj9jbrhto86ut0e7c3f20sh08t.apps.googleusercontent.com.json
+app/firebase-adminsdk.json
+app/google-services.json

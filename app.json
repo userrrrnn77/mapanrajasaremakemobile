@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mapan-rajasa-remake-react_native",
-    "slug": "mapan-rajasa-remake-react_native",
+    "name": "Mapan Rajasa",
+    "slug": "mapan-rajasa-remake",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,9 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": ["expo-secure-store"]
   }
 }

@@ -1,0 +1,47 @@
+/* app/theme/global.css */
+
+@tailwind base;  /* Unknown at rule @tailwind */
+@tailwind components; /* Unknown at rule @tailwind */
+@tailwind utilities; /* Unknown at rule @tailwind */
+
+@layer base {
+    :root {
+        /* --- LIGHT MODE --- */
+        --background: 0 0% 100%;
+        /* Putih Bersih */
+        --foreground: 222 47% 11%;
+        /* Hitam Slate */
+
+        --primary: 204 100% 50%;
+        /* #0099ff (Sky Blue) */
+        --primary-foreground: 0 0% 100%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+
+        --muted: 210 40% 96%;
+        --muted-foreground: 215 16% 47%;
+
+        --border: 214 32% 91%;
+    }
+
+    .dark {
+        /* --- DARK MODE --- */
+        --background: 222 47% 11%;
+        /* Slate 950 */
+        --foreground: 210 40% 98%;
+        /* Putih Greyish */
+
+        --primary: 204 100% 50%;
+        /* Tetap #0099ff biar branding kuat */
+        --primary-foreground: 0 0% 100%;
+
+        --card: 222 47% 11%;
+        --card-foreground: 210 40% 98%;
+
+        --muted: 217 33% 17%;
+        --muted-foreground: 215 20% 65%;
+
+        --border: 217 33% 17%;
+    }
+}
