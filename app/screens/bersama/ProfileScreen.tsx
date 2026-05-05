@@ -125,8 +125,42 @@ export const ProfileScreen = () => {
 
   if (fetching)
     return (
-      <Container className="justify-center items-center">
-        <Typography className="animate-pulse">Sinkronisasi Data...</Typography>
+      <Container className="px-0 bg-slate-50 dark:bg-slate-900">
+        <Header title="Profil" showBack />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {/* Skeleton Profile Card */}
+          <View className="items-center py-8 bg-white dark:bg-slate-800 rounded-b-[48px] shadow-sm">
+            <View className="w-32 h-32 rounded-full bg-slate-200 dark:bg-slate-700 animate-pulse border-4 border-slate-100 dark:border-slate-600" />
+            <View className="mt-4 h-8 w-48 bg-slate-200 dark:bg-slate-700 animate-pulse rounded-xl" />
+            <View className="mt-2 h-6 w-32 bg-slate-200 dark:bg-slate-700 animate-pulse rounded-full" />
+          </View>
+
+          <View className="px-6 -mt-6 gap-y-4">
+            {/* Skeleton Detail Penugasan */}
+            <View className="bg-white dark:bg-slate-800 p-6 rounded-[24px] shadow-sm border border-slate-100 dark:border-slate-700">
+              <View className="h-6 w-32 bg-slate-200 dark:bg-slate-700 animate-pulse rounded-lg mb-6" />
+              {[1, 2, 3].map((i) => (
+                <View
+                  key={i}
+                  className="flex-row items-center justify-between mb-4">
+                  <View className="flex-row items-center">
+                    <View className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 animate-pulse" />
+                    <View className="ml-3 h-4 w-20 bg-slate-100 dark:bg-slate-700 animate-pulse rounded-md" />
+                  </View>
+                  <View className="h-4 w-24 bg-slate-100 dark:bg-slate-700 animate-pulse rounded-md" />
+                </View>
+              ))}
+            </View>
+
+            {/* Skeleton Form Section */}
+            <View className="bg-white dark:bg-slate-800 p-6 rounded-[24px] shadow-sm border border-slate-100 dark:border-slate-700">
+              <View className="h-6 w-32 bg-slate-200 dark:bg-slate-700 animate-pulse rounded-lg mb-6" />
+              <View className="h-14 w-full bg-slate-100 dark:bg-slate-700 animate-pulse rounded-2xl mb-4" />
+              <View className="h-14 w-full bg-slate-100 dark:bg-slate-700 animate-pulse rounded-2xl mb-4" />
+              <View className="h-14 w-full bg-primary/10 animate-pulse rounded-2xl" />
+            </View>
+          </View>
+        </ScrollView>
       </Container>
     );
 

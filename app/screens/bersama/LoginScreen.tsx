@@ -75,9 +75,6 @@ export const LoginScreen = () => {
     try {
       const res = await loginReq(phone, password);
 
-      // 🔥 CEK DI SINI BRE! Liat strukturnya di terminal
-      console.log("ISI RESPONSE LOGIN:", res);
-
       // Biasanya strukturnya res.data.data (tergantung backend lu)
       // Sesuai controller lu, datanya ada di res.data.data
       const targetData = res.data?.data || res.data || res;

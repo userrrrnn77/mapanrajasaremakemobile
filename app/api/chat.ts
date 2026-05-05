@@ -61,3 +61,13 @@ export const askAIPrivateReg = async (
   );
   return response.data;
 };
+
+export const getChatHistoryReq = async () => {
+  const response = await api.get("/chat/history");
+  return response.data; 
+};
+
+export const getThreadMessagesReq = async (threadId: string) => {
+  const response = await api.get(`/chat/thread/${threadId}`);
+  return response.data; 
+};

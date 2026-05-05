@@ -10,6 +10,7 @@ import { Container, Typography, Header, Avatar, Toast } from "../../components";
 import { useAuthStore } from "../../context/useAuthStore";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { getDashboardStatsReq } from "../../api/user"; // Controller lu yang tadi bre
+import { useColorScheme } from "nativewind";
 
 export const DashboardCleaning = () => {
   const navigation = useNavigation<any>();
@@ -36,6 +37,15 @@ export const DashboardCleaning = () => {
     setToast({ visible: true, message, type });
     setTimeout(() => setToast({ ...toast, visible: false }), 3000); // Auto hide 3 detik
   };
+
+  const quotesKuli = [
+    "Sapu hari ini dengan ikhlas, biar kotoran masa lalu ikut terhempas. ✨",
+    "Gajian boleh molor, tapi semangat jangan kendor. Ingat cicilan di luar monitor! 💸",
+    "Area bersih, hati tenang, bos senang (walau bonus cuma bayang-bayang). 🧤",
+    "Bekerjalah seperti robot, mengeluhlah seperti manusia, gajianlah seperti keajaiban. 🤖",
+    "Lantai yang kinclong adalah cermin masa depan yang cerah, Bre! 🌟",
+    "Jangan bandingkan gajimu dengan bosmu, bandingkan sabarmu dengan batu karang. 💪",
+  ];
 
   const fetchStats = async () => {
     try {
@@ -100,6 +110,9 @@ export const DashboardCleaning = () => {
       attendanceData: stats.currentAttendance,
     });
   };
+
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   return (
     <Container className="px-0 bg-slate-50 dark:bg-slate-900">
@@ -197,8 +210,8 @@ export const DashboardCleaning = () => {
         </View>
 
         {/* Menu Grid 2.0 */}
-        <Typography variant="h3" className="mb-4 ml-1">
-          Layanan Squad
+        <Typography variant="h3" className="mb-4 ml-1 dark:text-white">
+          Squad Service
         </Typography>
         <View className="flex-row flex-wrap justify-between">
           <ActionMenu
@@ -230,7 +243,115 @@ export const DashboardCleaning = () => {
             onPress={() => navigation.navigate("RiwayatSaya")}
           />
         </View>
-        {/* bisa pasang iklan disini bre aowkoaw sisa banyak njir */}
+
+        {/* --- BANNER MOTIVASI SQUAD --- */}
+        <View
+          className={`mt-4 mb-4 overflow-hidden rounded-[32px] border ${
+            isDark
+              ? "bg-slate-800/30 border-primary/20"
+              : "bg-white border-slate-100 shadow-sm"
+          }`}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            className="flex-row items-center p-6"
+            onPress={() =>
+              showToast("Push terus Bre, dikit lagi gajian! (Mungkin)", "info")
+            }>
+            <View className="flex-1">
+              <View
+                className={`${isDark ? "bg-primary/20" : "bg-primary/10"} self-start px-2 py-1 rounded-lg mb-2`}>
+                <Typography className="text-[9px] font-black text-primary uppercase italic">
+                  Daily Mood Booster
+                </Typography>
+              </View>
+
+              <Typography
+                className={`font-black text-lg leading-6 ${
+                  isDark ? "text-white" : "text-slate-900"
+                }`}>
+                Pesan Dari Semesta 🌌
+              </Typography>
+
+              {/* Teks Motivasi Random */}
+              <Typography
+                className={`text-[12px] mt-2 font-medium italic leading-5 ${
+                  isDark ? "text-slate-400" : "text-slate-600"
+                }`}>
+                "{quotesKuli[Math.floor(Math.random() * quotesKuli.length)]}"
+              </Typography>
+
+              <View className="mt-4 flex-row items-center bg-slate-100 dark:bg-slate-800 self-start px-3 py-1.5 rounded-full">
+                <Typography className="text-slate-500 font-bold text-[10px] mr-2">
+                  Tap buat dapet pencerahan
+                </Typography>
+                <MaterialCommunityIcons
+                  name="lightbulb-on"
+                  size={14}
+                  color="#f59e0b"
+                />
+              </View>
+            </View>
+
+            <View
+              className={`ml-2 rotate-12 ${isDark ? "opacity-20" : "opacity-10"}`}>
+              <MaterialCommunityIcons
+                name="arm-flex-outline"
+                size={70}
+                color={isDark ? "#ffffff" : "#0f172a"}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        {/* --- BANNER KEBANGGAAN SQUAD (REVISI VISUAL) --- */}
+        <View
+          className={`mt-2 mb-20 overflow-hidden rounded-[28px] border ${
+            isDark
+              ? "bg-slate-800/50 border-primary/20"
+              : "bg-blue-50 border-blue-100 shadow-sm"
+          }`}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            className="flex-row items-center p-5"
+            onPress={() =>
+              showToast("Kerja bagus hari ini, Bre! 👊", "success")
+            }>
+            <View className="flex-1">
+              <View className="flex-row items-center mb-2">
+                <MaterialCommunityIcons
+                  name="shield-check"
+                  size={16}
+                  color="#0099ff"
+                />
+                <Typography className="text-[10px] font-black text-primary ml-1 uppercase tracking-widest">
+                  Certified Professional
+                </Typography>
+              </View>
+
+              {/* REVISI DISINI BRE: Tambahin leading-relaxed biar shield & text gak kepotong atasnya */}
+              <Typography
+                className={`font-black text-base leading-7 ${isDark ? "text-white" : "text-slate-900"}`}>
+                Garda Kenyamanan Gedung 🛡️
+              </Typography>
+
+              <Typography
+                className={`text-[11px] mt-1 leading-4 font-medium ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+                Tanpa sapu dan tangan dingin lu, tempat ini cuma tumpukan debu.
+                Respek penuh buat dedikasi lu hari ini, Bre!
+              </Typography>
+            </View>
+
+            {/* Bagian Icon Kanan tetep aman */}
+            <View
+              className={`ml-3 w-14 h-14 items-center justify-center rounded-2xl ${isDark ? "bg-slate-700" : "bg-white shadow-sm"}`}>
+              <MaterialCommunityIcons
+                name="star-face"
+                size={32}
+                color="#f59e0b"
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </Container>
   );
@@ -256,7 +377,7 @@ const ActionMenu = ({ title, desc, icon, color, onPress }: any) => (
   <TouchableOpacity
     onPress={onPress}
     activeOpacity={0.8}
-    className="bg-white dark:bg-slate-800 w-[48%] mb-4 p-5 rounded-[28px] shadow-sm border border-slate-100 dark:border-slate-700">
+    className="bg-white dark:bg-slate-800 w-[48%] mb-4 p-5 rounded-[28px] shadow-sm border border-slate-100 dark:border-slate-700 items-center">
     <View
       className={`${color} w-10 h-10 items-center justify-center rounded-xl mb-3 shadow-lg shadow-${color.split("-")[1]}-500/20`}>
       <Ionicons name={icon} size={22} color="white" />
