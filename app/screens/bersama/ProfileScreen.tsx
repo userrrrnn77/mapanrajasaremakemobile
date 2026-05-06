@@ -318,8 +318,10 @@ export const ProfileScreen = () => {
             <View className="flex-col gap-y-3">
               <TouchableOpacity
                 onPress={() => setShowLogoutModal(false)}
-                className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-700 items-center">
-                <Typography className="font-bold">Batal</Typography>
+                className="p-4 rounded-2xl bg-slate-100 dark:text-white dark:bg-slate-700 items-center">
+                <Typography className="font-bold dark:text-white">
+                  Batal
+                </Typography>
               </TouchableOpacity>
 
               <TouchableOpacity

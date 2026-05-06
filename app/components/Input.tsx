@@ -6,8 +6,8 @@ import {
 } from "react-native";
 import { Typography } from "./Typography";
 import { useState } from "react";
-// Lu bisa pake Lucide atau icon lain, ini contoh pake Lucide
 import { Eye, EyeOff } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -19,57 +19,60 @@ export const Input = ({
   label,
   error,
   className = "",
-  secureTextEntry, // Kita ambil dari props asli TextInput
+  secureTextEntry,
   ...props
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false);
-  // State buat toggle mata
   const [showPassword, setShowPassword] = useState(false);
+
+  const { colorScheme } = useColorScheme();
+  // Pastikan isDark beneran dapet state terbaru
+  const isDark = colorScheme === "dark";
 
   return (
     <View className={`mb-4 w-full ${className}`}>
       {label && (
-        <Typography variant="caption" className="mb-1 ml-1 text-slate-500">
+        <Typography
+          variant="caption"
+          className="mb-1 ml-1 text-slate-500 font-bold uppercase">
           {label}
         </Typography>
       )}
 
-      {/* Container dibikin flex-row biar icon bisa di samping kanan */}
       <View
-        className={`bg-card border rounded-xl px-4 py-3 flex-row items-center ${
+        className={`bg-white dark:bg-slate-900 border rounded-2xl px-4 flex-row items-center h-14 ${
           error
             ? "border-red-500"
             : isFocused
               ? "border-primary"
-              : "border-border"
+              : "border-slate-200 dark:border-slate-800"
         }`}>
         <TextInput
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          placeholderTextColor="#94a3b8"
-          className="text-foreground text-base p-0 flex-1" // flex-1 biar gak nabrak icon
-          // Logic: kalau aslinya password, biarin dia ikut toggle showPassword
+          placeholderTextColor={isDark ? "#94a3b8" : "#64748b"}
+          style={{ textAlignVertical: "center" }}
+          className="text-slate-900 dark:text-white text-base flex-1 h-full"
           secureTextEntry={secureTextEntry && !showPassword}
           {...props}
         />
 
-        {/* Cuma muncul kalau props secureTextEntry dikirim */}
         {secureTextEntry && (
           <TouchableOpacity
             onPress={() => setShowPassword(!showPassword)}
             activeOpacity={0.7}
             className="ml-2">
             {showPassword ? (
-              <EyeOff size={20} color="#94a3b8" />
+              <EyeOff size={20} color={isDark ? "#94a3b8" : "#64748b"} />
             ) : (
-              <Eye size={20} color="#94a3b8" />
+              <Eye size={20} color={isDark ? "#94a3b8" : "#64748b"} />
             )}
           </TouchableOpacity>
         )}
       </View>
 
       {error && (
-        <Typography variant="error" className="mt-1 ml-1">
+        <Typography variant="error" className="mt-1 ml-1 text-xs text-red-500">
           {error}
         </Typography>
       )}

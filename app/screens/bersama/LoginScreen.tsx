@@ -150,7 +150,7 @@ export const LoginScreen = () => {
   );
 
   return (
-    <Container className="px-0">
+    <Container className="px-0 dark:bg-slate-900/90">
       <Toast
         visible={toast.visible}
         message={toast.message}
@@ -177,10 +177,14 @@ export const LoginScreen = () => {
               />
             </View>
 
-            <Typography variant="h1" className="mt-8 text-center">
+            <Typography
+              variant="h1"
+              className="mt-8 text-center dark:text-white">
               {formLogin ? "Cuan Menantimu Bre!" : "Ready to Join Squad?"}
             </Typography>
-            <Typography variant="caption" className="text-center mt-2 px-4">
+            <Typography
+              variant="caption"
+              className="text-center mt-2 px-4 dark:text-white">
               {formLogin
                 ? "Login dulu biar mesin cuan lu nyala lagi. Let's GO! 🚀"
                 : "Isi data lu, kita bikin standar kebersihan baru bareng-bareng."}
@@ -208,12 +212,14 @@ export const LoginScreen = () => {
                 title="Gas Masuk"
                 onPress={handleLogin}
                 loading={loading}
-                className="mt-4 py-4 bg-primary rounded-xl dark:bg-slate-500 text-slate-50"
+                className="mt-4 py-4 bg-primary rounded-xl  text-slate-50"
               />
               <TouchableOpacity
                 onPress={() => setFormLogin(false)}
                 className="mt-6 flex-row justify-center">
-                <Typography variant="caption">Baru di sini? </Typography>
+                <Typography className="dark:text-white" variant="caption">
+                  Baru di sini?{" "}
+                </Typography>
                 <Typography className="text-primary font-bold">
                   Join Squad Sekarang
                 </Typography>
@@ -271,12 +277,16 @@ export const LoginScreen = () => {
                 title="Daftar Squad"
                 onPress={handleRegister}
                 loading={loading}
-                className="mt-4 py-4 bg-primary dark:bg-slate-50 rounded-xl"
+                className="mt-4 py-4 bg-primary rounded-xl"
               />
               <TouchableOpacity
                 onPress={() => setFormLogin(true)}
                 className="mt-6 flex-row justify-center">
-                <Typography variant="caption">Udah punya akun? </Typography>
+                <Typography
+                  className="text-black dark:text-white"
+                  variant="caption">
+                  Udah punya akun?{" "}
+                </Typography>
                 <Typography className="text-primary font-bold">
                   Login Aja
                 </Typography>
@@ -286,7 +296,7 @@ export const LoginScreen = () => {
 
           <Typography
             variant="caption"
-            className="text-center mt-16 opacity-40 italic">
+            className="text-center mt-16 opacity-40 italic dark:text-white">
             Mapan Rajasa | Powered by Bre.Corp Uptime King 👑
           </Typography>
         </ScrollView>

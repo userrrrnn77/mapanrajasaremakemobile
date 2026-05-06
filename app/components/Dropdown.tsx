@@ -38,17 +38,20 @@ export const Dropdown = ({
   return (
     <View className="mb-4">
       {label && (
-        <Typography className="mb-2 font-semibold text-sm">{label}</Typography>
+        <Typography className="mb-2 font-semibold text-sm dark:text-white">
+          {label}
+        </Typography>
       )}
 
       <TouchableOpacity
         onPress={() => setVisible(true)}
         activeOpacity={0.7}
-        className={`flex-row items-center justify-between p-4 bg-muted/50 rounded-2xl border ${error ? "border-red-500" : "border-border"}`}>
+        className={`flex-row items-center dark:bg-slate-800 justify-between p-4 bg-muted/50 rounded-2xl border ${error ? "border-red-500 dark:border-slate-950" : "border-border dark:border-slate-950"}`}>
         <Typography
-          className={
-            selectedOption ? "text-foreground" : "text-muted-foreground"
-          }>
+          className={`
+            ${selectedOption ? "text-foreground dark:text-white" : "text-muted-foreground dark:text-white"}
+            
+          `}>
           {selectedOption ? selectedOption.label : placeholder}
         </Typography>
         <Ionicons name="chevron-down" size={20} color="#64748b" />
@@ -69,9 +72,11 @@ export const Dropdown = ({
         <Pressable
           className="flex-1 bg-black/40 justify-end"
           onPress={() => setVisible(false)}>
-          <View className="bg-card rounded-t-[32px] p-6 pb-12 max-h-[50%]">
+          <View className="dark:bg-slate-700 rounded-t-[32px] p-6 pb-12 max-h-[50%]">
             <View className="w-12 h-1.5 bg-muted rounded-full self-center mb-6" />
-            <Typography variant="h3" className="mb-4 text-center">
+            <Typography
+              variant="h3"
+              className="mb-4 text-center dark:text-white">
               Pilih {label}
             </Typography>
 
@@ -86,18 +91,18 @@ export const Dropdown = ({
                   }}
                   className={`py-4 border-b border-border flex-row justify-between items-center`}>
                   <Typography
-                    className={
+                    className={` ${
                       item.value === value
                         ? "text-primary font-bold"
-                        : "text-foreground"
-                    }>
+                        : "text-foreground dark:text-white"
+                    } `}>
                     {item.label}
                   </Typography>
                   {item.value === value && (
                     <Ionicons
                       name="checkmark-circle"
                       size={20}
-                      color="#your-primary-color"
+                      color="#0099ff"
                     />
                   )}
                 </TouchableOpacity>

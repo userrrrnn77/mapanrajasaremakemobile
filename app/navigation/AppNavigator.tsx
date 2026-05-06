@@ -3,18 +3,23 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { useAuthStore } from "../context/useAuthStore";
 
-// Screens
+// Screens Bersama
 import { LoginScreen } from "../screens/bersama/LoginScreen";
-import { DashboardCleaning } from "../screens/cleaning_service/DashboardCleaning";
 import { ProfileScreen } from "../screens/bersama/ProfileScreen";
+
+// Cleaning Screens
+import { DashboardCleaning } from "../screens/cleaning_service/DashboardCleaning";
 import AttendanceCleaning from "../screens/cleaning_service/AttendanceCleaning";
 import ActivityCleaning from "../screens/cleaning_service/ActivityCleaning";
 import ReportCleaning from "../screens/cleaning_service/ReportCleaning";
 import TimelineHistory from "../screens/cleaning_service/TimelineHistory";
 import AIChatCleaning from "../screens/cleaning_service/AIChatCleaning";
-// Import screen lainnya yang tadi ada di Menu Bento
-// import { FormAbsen } from "../screens/cleaning_service/FormAbsen";
-// import { ChatAIScreen } from "../screens/cleaning_service/ChatAIScreen";
+
+// Admin Screens
+import AdminDashboard from "../screens/admin/DashboardAdmin";
+import ManajemenKaryawan from "../screens/admin/ManajemenKaryawan";
+import RekapAbsen from "../screens/admin/RekapAbsen";
+import LocationControl from "../screens/admin/AreaTempur";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,11 +43,21 @@ export const AppNavigator = () => {
         // return <Stack.Screen name="Dashboard" component={DashboardSecurity} />;
         return null;
       case "admin":
-        // return <Stack.Screen name="Dashboard" component={DashboardAdmin} />;
-        return null;
+        return (
+          <>
+            <Stack.Screen name="Dashboard" component={AdminDashboard} />
+            <Stack.Screen name="UserManagement" component={ManajemenKaryawan} />
+            <Stack.Screen name="LookAllAttendance" component={RekapAbsen} />
+            <Stack.Screen name="LocationControl" component={LocationControl} />
+          </>
+        );
       default:
         // Fallback kalau role belum turun dari langit
-        return <Stack.Screen name="Dashboard" component={DashboardCleaning} />;
+        return (
+          <>
+            <Stack.Screen name="Dashboard" component={DashboardCleaning} />
+          </>
+        );
     }
   };
 

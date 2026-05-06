@@ -1,3 +1,5 @@
+// app/context/useThemeStore.ts
+
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useColorScheme } from "nativewind";
@@ -14,3 +16,14 @@ export const useThemeStore = create<ThemeState>((set) => ({
     set({ theme });
   },
 }));
+
+export const useTheme = () => {
+  const { colorScheme, setColorScheme, toggleColorScheme } = useColorScheme();
+
+  return {
+    isDark: colorScheme === "dark",
+    colorScheme,
+    setColorScheme,
+    toggleColorScheme,
+  };
+};

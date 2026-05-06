@@ -373,7 +373,7 @@ const StatBox = ({ label, value, icon, color, bg }: any) => (
   </View>
 );
 
-const ActionMenu = ({ title, desc, icon, color, onPress }: any) => (
+export const ActionMenu = ({ title, desc, icon, color, onPress }: any) => (
   <TouchableOpacity
     onPress={onPress}
     activeOpacity={0.8}
