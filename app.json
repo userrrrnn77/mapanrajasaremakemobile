@@ -33,6 +33,13 @@
       "favicon": "./assets/adaptive-icon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-secure-store"]
+    "plugins": [
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ed0b0b14-e065-4397-aa33-c1b531ee7c61"
+      }
+    }
   }
 }

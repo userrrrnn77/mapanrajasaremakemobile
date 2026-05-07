@@ -30,6 +30,8 @@ yarn-error.*
 .DS_Store
 *.pem
 
+build-1778173968750.apk
+
 # local env files
 .env*.local
 
