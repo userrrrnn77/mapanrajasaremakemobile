@@ -20,6 +20,9 @@ import AdminDashboard from "../screens/admin/DashboardAdmin";
 import ManajemenKaryawan from "../screens/admin/ManajemenKaryawan";
 import RekapAbsen from "../screens/admin/RekapAbsen";
 import LocationControl from "../screens/admin/AreaTempur";
+import KotakLapor from "../screens/admin/KotakLapor";
+import ManajemenAktivitas from "../screens/admin/ManajemenAktivitas";
+import PusatLog from "../screens/admin/PusatLog";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +52,12 @@ export const AppNavigator = () => {
             <Stack.Screen name="UserManagement" component={ManajemenKaryawan} />
             <Stack.Screen name="LookAllAttendance" component={RekapAbsen} />
             <Stack.Screen name="LocationControl" component={LocationControl} />
+            <Stack.Screen name="ReportCenter" component={KotakLapor} />
+            <Stack.Screen
+              name="LookAllActivity"
+              component={ManajemenAktivitas}
+            />
+            <Stack.Screen name="LookAllLog" component={PusatLog} />
           </>
         );
       default:

@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 import { useAuthStore } from "../context/useAuthStore";
 
 const api = axios.create({
-  baseURL: "http://192.168.1.2:5001/api",
+  baseURL: "http://172.16.167.240:5001/api",
   headers: {
     "Content-Type": "application/json",
   },

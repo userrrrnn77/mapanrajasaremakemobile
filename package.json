@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "dev": "systemd-run --user --scope -p CPUQuota=40% -p MemoryMax=3G taskset -c 0-2 bun expo run:android",
+    "dev": "bun run taskset & bun run android",
+    "taskset": "taskset -c 3 scrcpy --turn-screen-off --always-on-top --max-fps 30",
     "start": "systemd-run --user --scope -p CPUQuota=40% -p MemoryMax=3G taskset -c 0-2 bun expo start",
     "android": "systemd-run --user --scope -p CPUQuota=40% -p MemoryMax=3G taskset -c 0-2 bun expo run:android",
     "ios": "expo run:ios",
