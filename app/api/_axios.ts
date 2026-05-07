@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 import { useAuthStore } from "../context/useAuthStore";
 
 const api = axios.create({
-  baseURL: "http://172.16.167.240:5001/api",
+  baseURL: "https://mapanrajasaremakecore.vercel.app/api",
   headers: {
     "Content-Type": "application/json",
   },
