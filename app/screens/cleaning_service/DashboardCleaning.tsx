@@ -14,7 +14,7 @@ import { useColorScheme } from "nativewind";
 
 export const DashboardCleaning = () => {
   const navigation = useNavigation<any>();
-  const { user } = useAuthStore();
+  const { user, token } = useAuthStore();
   const [refreshing, setRefreshing] = useState(false);
 
   const [stats, setStats] = useState({
@@ -49,34 +49,35 @@ export const DashboardCleaning = () => {
 
   const fetchStats = async () => {
     try {
-      const res = await getDashboardStatsReq(); //
-      if (res.data.success) {
-        const { totalAktivitas, laporanAktif, currentAttendance } =
-          res.data.data; //
+      const res = await getDashboardStatsReq();
 
-        // 🔥 Logic Sinkronisasi sama Model Attendance lu
+      const rawData = res.data.success ? res.data.data : res.data;
+
+      if (rawData) {
+        const { totalAktivitas, laporanAktif, currentAttendance } = rawData;
+
+        // 🔥 Logic Sinkronisasi Model Attendance
         let statusLabel = "Belum Absen";
+
         if (currentAttendance) {
-          if (
-            currentAttendance.type === "masuk" &&
-            currentAttendance.isIncomplete
-          ) {
+          const { type, isIncomplete } = currentAttendance;
+
+          if (type === "masuk" && isIncomplete === true) {
             statusLabel = "Sedang Kerja";
-          } else if (
-            currentAttendance.type === "keluar" ||
-            !currentAttendance.isIncomplete
-          ) {
+          } else if (type === "masuk" && isIncomplete === false) {
+            statusLabel = "Sudah Pulang"; // Masuk tapi sudah dicheckout (incomplete false)
+          } else if (type === "keluar") {
             statusLabel = "Sudah Pulang";
-          } else if (currentAttendance.type === "sakit") {
-            statusLabel = "Izin Sakit";
+          } else if (type === "sakit" || type === "izin") {
+            statusLabel = "Izin";
           }
         }
 
         setStats({
-          totalAktivitas,
-          laporanAktif,
+          totalAktivitas: totalAktivitas || 0,
+          laporanAktif: laporanAktif || 0,
           statusAbsen: statusLabel,
-          currentAttendance,
+          currentAttendance: currentAttendance || null,
         });
       }
     } catch (error: any) {
@@ -100,7 +101,6 @@ export const DashboardCleaning = () => {
     const statusKunci = ["Sudah Pulang", "Izin Sakit", "Izin"];
 
     if (statusKunci.includes(stats.statusAbsen)) {
-      // Pake Toast Bre, biar makin legit!
       showToast("Shift hari ini udah kelar, selamat istirahat!", "info");
       return;
     }
@@ -111,7 +111,7 @@ export const DashboardCleaning = () => {
     });
   };
 
-  const { colorScheme, setColorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const isDark = colorScheme === "dark";
 
   return (

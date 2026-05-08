@@ -396,7 +396,9 @@ export default function ActivityCleaning({ navigation }: any) {
           disabled={!hasCheckedInToday}
           onPress={handleSubmit}
           className={`rounded-2xl py-6 shadow-2xl mb-12 ${
-            hasCheckedInToday ? "shadow-primary/40" : "bg-gray-500 shadow-none"
+            hasCheckedInToday
+              ? "shadow-primary/40 bg-primary"
+              : "bg-gray-500 shadow-none"
           }`}
         />
       </ScrollView>

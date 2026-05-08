@@ -4,9 +4,9 @@
     "slug": "mapan-rajasa-remake",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/adative-icon.png",
+    "icon": "./assets/icon-aplikasi.png",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon-revisi.png",
       "resizeMode": "contain",
@@ -18,7 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adative-icon.png",
+        "foregroundImage": "./assets/icon-aplikasi.png",
         "backgroundColor": "#ffffff"
       },
       "splash": {
@@ -26,13 +26,9 @@
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
       "package": "com.userrrrennnn77.mapanrajasaremake"
     },
-    "web": {
-      "favicon": "./assets/adative-icon.png",
-      "bundler": "metro"
-    },
+    "platforms": ["ios", "android"],
     "plugins": ["expo-secure-store"],
     "extra": {
       "eas": {

@@ -49,8 +49,8 @@ export default function TimelineHistory({ navigation }: any) {
   };
 
   const fetchTimeline = async () => {
-    // 🔥 Logic Reset Otomatis Tanggal 7 biar HP kuli kaga penuh
     const today = new Date();
+
     if (today.getDate() === 7) {
       setIsResetDay(true);
       setData([]);
@@ -59,11 +59,16 @@ export default function TimelineHistory({ navigation }: any) {
     }
 
     setIsResetDay(false);
+
     try {
       setLoading(true);
+
       const res = await getMyTimelineReq();
+
       setData(res.data || []);
     } catch (error: any) {
+      console.log("TIMELINE ERROR:", error);
+
       showToast("Gagal narik riwayat, server lagi puyeng!", "error");
     } finally {
       setLoading(false);
@@ -85,7 +90,7 @@ export default function TimelineHistory({ navigation }: any) {
       case "ABSENSI":
         return {
           bg: "bg-blue-500/10",
-          text: "text-blue-500",
+          text: "text-white",
           icon: "fingerprint",
         };
       case "LAPORAN":
@@ -181,7 +186,7 @@ export default function TimelineHistory({ navigation }: any) {
                           name={style.icon as any}
                           size={22}
                           color={
-                            style.text === "text-blue-500"
+                            style.text === "text-white"
                               ? "#3b82f6"
                               : style.text === "text-red-500"
                                 ? "#ef4444"
@@ -217,21 +222,32 @@ export default function TimelineHistory({ navigation }: any) {
                         {item.displayDesc}
                       </Typography>
 
-                      {(item.photos?.length > 0 || item.photo) && (
+                      {/* Timeline Card Photo Logic */}
+                      {(item.photos?.length > 0 ||
+                        item.photo ||
+                        item.documentation?.length > 0) && (
                         <View className="relative">
                           <Image
                             source={{
-                              uri: item.photos
-                                ? item.photos[0]
-                                : item.photo.url,
+                              uri:
+                                item.photos?.length > 0
+                                  ? item.photos[0] // LAPORAN
+                                  : item.photo?.url
+                                    ? item.photo.url // ABSENSI
+                                    : item.documentation?.[0]?.photo?.url, // AKTIVITAS (Ini biang keroknya!)
                             }}
                             className="w-full h-36 rounded-2xl border border-border"
                             resizeMode="cover"
                           />
-                          {item.photos?.length > 1 && (
+                          {/* Label Jumlah Foto */}
+                          {(item.photos?.length > 1 ||
+                            item.documentation?.length > 1) && (
                             <View className="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded-lg">
                               <Typography className="text-white text-[10px] font-bold">
-                                +{item.photos.length - 1} Foto
+                                +
+                                {(item.photos?.length ||
+                                  item.documentation?.length) - 1}{" "}
+                                Foto
                               </Typography>
                             </View>
                           )}
@@ -261,17 +277,25 @@ export default function TimelineHistory({ navigation }: any) {
               horizontal
               showsHorizontalScrollIndicator={false}
               className="flex-row mb-6">
-              {(
-                selectedItem.photos ||
-                (selectedItem.photo ? [selectedItem.photo] : [])
-              ).map((pic: any, i: number) => (
-                <View key={i} className="mr-4 shadow-2xl">
-                  <Image
-                    source={{ uri: typeof pic === "string" ? pic : pic.url }}
-                    className="w-72 h-96 rounded-[40px] border-2 border-primary/20"
-                  />
-                </View>
-              ))}
+              {(() => {
+                // 🔥 Kita kumpulin semua foto dari berbagai jenis kategori ke satu wadah (Array)
+                const allPhotos = [
+                  ...(selectedItem.photos || []), // Kalo dari Laporan
+                  ...(selectedItem.photo ? [selectedItem.photo.url] : []), // Kalo dari Absensi
+                  ...(selectedItem.documentation
+                    ?.map((d: any) => d.photo?.url)
+                    .filter(Boolean) || []), // Kalo dari Aktivitas
+                ];
+
+                return allPhotos.map((uri: string, i: number) => (
+                  <View key={i} className="mr-4 shadow-2xl">
+                    <Image
+                      source={{ uri }}
+                      className="w-72 h-96 rounded-[40px] border-2 border-primary/20"
+                    />
+                  </View>
+                ));
+              })()}
             </ScrollView>
 
             <View className="px-1">
